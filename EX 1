@@ -1,0 +1,22 @@
+rom sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.linear_model import LogisticRegression
+iris = load_iris()
+X = iris.data
+y = (iris.target != 0).astype(int)  
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+model = LogisticRegression(max_iter=200)
+model.fit(X_train, y_train)
+pred = model.predict(X_test)
+print("Bi-level Confusion Matrix:")
+print(confusion_matrix(y_test, pred))
+print(classification_report(y_test, pred))
+X_train2, X_test2, y_train2, y_test2 = train_test_split(
+    iris.data, iris.target, test_size=0.3)
+model2 = LogisticRegression(max_iter=200)
+model2.fit(X_train2, y_train2)
+pred2 = model2.predict(X_test2)
+print("Multi-level Confusion Matrix:")
+print(confusion_matrix(y_test2, pred2))
+print(classification_report(y_test2, pred2))
